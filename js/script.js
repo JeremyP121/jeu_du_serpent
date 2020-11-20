@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         //Ici, il s'agit d'une méthode plutôt qu'une fonction puisqu'elle se trouve dans une classe.
         nouvellePartie() {
+            this.affichagePointage(1);
+
+            this.pomme = new Pomme();
+
+            this.serpent = new Serpent();
 
         }
 
@@ -29,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         //Ici aussi, il s'agit d'une méthode plutôt qu'une fonction puisqu'elle se trouve dans une classe.
-        affichagePointage() {
+        affichagePointage(_lePointage) {
+            this.sortiePointage.innerHTML = _lePointage;
 
         }
 
@@ -57,4 +63,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     var unePartie = new Jeu("#jeu", "#pointage");     //En passant des paramètres à Jeu(), j'appelle le constructeur de la classe en question. Dans ce cas-ci, il s'agit de la classe Jeu().
 
+    var btnJouer = document.querySelector("#btnJouer");
+    btnJouer.addEventListener("click", nouvellePartie)
+
+    function nouvellePartie() {
+        unePartie.nouvellePartie();
+    }
+
+    //this.nouvellePartie();
 });
