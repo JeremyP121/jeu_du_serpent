@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         nouvellePartie() {
             this.affichagePointage(1);
 
-            this.pomme = new Pomme();
+            this.pomme = new Pomme(this);
 
             this.serpent = new Serpent();
 
@@ -57,6 +57,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
         //Permet d'initialiser des variables ou de faire des fonctions directement.
         constructor(){
             console.log("Création de la pomme");
+        }
+
+        ajoutePomme() {
+
+        }
+
+        supprimePomme() {
+
         }
 
     }
