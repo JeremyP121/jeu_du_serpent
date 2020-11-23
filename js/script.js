@@ -61,8 +61,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             this.nextMoveX = 1;
             this.nextMoveY = 0;
 
-            this.serpent.longueur = 1;
+            this.serpentLongueur = 1;
             this.tabCarreSerpent = [];
+
+            this.touche = false;
 
             this.vitesse = 250;
             this.timing = setInterval(this.controleSerpent.bind(this), this.vitesse);
@@ -108,13 +110,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var nextX = this.currentX + this.nextMoveX;
             var nextY = this.currentY + this.nextMoveY;
 
-            this.dessineCarre(nextX, nextY);
-            this.currentX = nextX;
-            this.currentY = nextY;
+            if (nextY < 0 || nextX < 0 || nextY > this.leJeu.grandeurGrille-1 || nextX > this.leJeu.grandeurGrille-1) {
+                console.log("Touche limite !");
+
+                this.leJeu.finPartie();
+
+                this.touche = true;
+
+            }
+
+            if (!this.touche) {
+                this.dessineCarre(nextX, nextY);
+                this.currentX = nextX;
+                this.currentY = nextY;
+
+            }
 
         }
 
         dessineCarre(x, y) {
+            var unCarre = [this.leJeu.s.rect(x * this.leJeu.grandeurCarre, y * this.leJeu.grandeurCarre, this.leJeu.grandeurCarre, this.leJeu.grandeurCarre), x, y];
+
+            this.tabCarreSerpent.push(unCarre);
+
+            if (this.tabCarreSerpent.length > this.serpentLongueur) {
+                this.tabCarreSerpent[0][0].remove();
+                this.tabCarreSerpent.shift();
+
+            }
 
         }
 
