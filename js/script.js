@@ -30,6 +30,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         //Ici aussi, il s'agit d'une méthode plutôt qu'une fonction puisqu'elle se trouve dans une classe.
         finPartie() {
+            if (this.pomme !== undefined) {
+                this.pomme.supprimePomme();
+                this.pomme = undefined;
+
+            }
 
         }
 
@@ -45,8 +50,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
     class Serpent{
 
         //Permet d'initialiser des variables ou de faire des fonctions directement.
-        constructor(){
+        constructor(_leJeu){
             console.log("Création du serpent");
+
+            this.leJeu = _leJeu;
+        }
+
+        verifTouche(evt){
+
+        }
+
+        deplacement(dirCode) {
+
+        }
+
+        controleSerpent() {
+
+        }
+
+        dessineCarre(x, y) {
+
+        }
+
+        supprimeSerpent() {
+
         }
 
     }
@@ -55,15 +82,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
     class Pomme{
 
         //Permet d'initialiser des variables ou de faire des fonctions directement.
-        constructor(){
+        constructor(_leJeu){
             console.log("Création de la pomme");
+
+            this.leJeu = _leJeu;
+
+            this.pomme = [];
+
+            this.ajoutePomme();
         }
 
         ajoutePomme() {
+            var posX = Math.floor( Math.random() * this.leJeu.grandeurGrille );
+
+            var posY = Math.floor( Math.random() * this.leJeu.grandeurGrille );
+
+            this.pomme = [this.leJeu.s.rect(posX * this.leJeu.grandeurCarre, posY * this.leJeu.grandeurCarre, this.leJeu.grandeurCarre, this.leJeu.grandeurCarre).attr({fill: 'red'}), posX, posY];
 
         }
 
         supprimePomme() {
+            this.pomme[0].remove();
 
         }
 
