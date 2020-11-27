@@ -36,6 +36,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
             }
 
+            if(this.serpent !== undefined) {
+                this.serpent.supprimeSerpent();
+                this.serpent = undefined;
+
+            }
+
         }
 
         //Ici aussi, il s'agit d'une méthode plutôt qu'une fonction puisqu'elle se trouve dans une classe.
@@ -110,6 +116,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var nextX = this.currentX + this.nextMoveX;
             var nextY = this.currentY + this.nextMoveY;
 
+            this.tabCarreSerpent.forEach(function(element){
+                if (nextX === element[1] && nextY === element[2]) {
+                    console.log("Touche moi-même !");
+
+                    this.leJeu.finPartie();
+                    this.touche = true;
+
+                }
+
+            }.bind(this));
+
             if (nextY < 0 || nextX < 0 || nextY > this.leJeu.grandeurGrille-1 || nextX > this.leJeu.grandeurGrille-1) {
                 console.log("Touche limite !");
 
@@ -120,6 +137,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
             if (!this.touche) {
+                if (this.currentX === this.leJeu.pomme.pomme[1] && this.currentY.leJeu.pomme.pomme[2]) {
+                    this.serpentLongueur ++;
+                    this.leJeu.affichagePointage(this.serpentLongueur);
+                    this.leJeu.pomme.supprimePomme();
+                    this.leJeu.pomme.ajoutePomme();
+
+                }
+
                 this.dessineCarre(nextX, nextY);
                 this.currentX = nextX;
                 this.currentY = nextY;
@@ -142,6 +167,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         supprimeSerpent() {
+            clearInterval(this.timing);
+            while(this.tabCarreSerpent.length >= 0) {
+                this.tabCarreSerpent[0][0].remove();
+                this.tabCarreSerpent.shift();
+
+            }
 
         }
 
